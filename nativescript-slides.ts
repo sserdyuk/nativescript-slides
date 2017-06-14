@@ -1,4 +1,3 @@
-require("nativescript-dom");
 import * as app from 'application';
 import * as Platform from 'platform';
 import utils = require('utils/utils');
@@ -600,24 +599,13 @@ export class SlideContainer extends AbsoluteLayout {
 	createIndicator(index: number): Label {
 		let indicator = new Label();
 
-		(<any>indicator).classList.add(SLIDE_INDICATOR_INACTIVE);
+		(<any>indicator).className = SLIDE_INDICATOR_INACTIVE;
 		return indicator;
 	}
 
 	setActivePageIndicator(index: number) {
-		let indicatorsToDeactivate = (<any>this._footer).getElementsByClassName(SLIDE_INDICATOR_ACTIVE);
-
-		indicatorsToDeactivate.forEach(activeIndicator => {
-			activeIndicator.classList.remove(SLIDE_INDICATOR_ACTIVE);
-			activeIndicator.classList.add(SLIDE_INDICATOR_INACTIVE);
-		});
-
-		let activeIndicator = (<any>this._footer).getElementsByClassName(SLIDE_INDICATOR_INACTIVE)[index];
-		if (activeIndicator) {
-			activeIndicator.classList.remove(SLIDE_INDICATOR_INACTIVE);
-			activeIndicator.classList.add(SLIDE_INDICATOR_ACTIVE);
-		}
-
+		this._footer.eachChild((indicator) => { indicator.className = SLIDE_INDICATOR_INACTIVE; return true });
+		this._footer.getChildAt(index).className = SLIDE_INDICATOR_ACTIVE;
 	}
 
 	iosProperty(theClass, theProperty) {

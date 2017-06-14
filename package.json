@@ -75,6 +75,5 @@
     "tns-core-modules": "^2.3.0"
   },
   "dependencies": {
-    "nativescript-dom": "^1.0.6"
   }
 }
